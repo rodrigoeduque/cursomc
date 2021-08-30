@@ -1,9 +1,10 @@
 package br.com.rodrigoeduque.cursomcnelioalves.categorias.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import br.com.rodrigoeduque.cursomcnelioalves.produtos.model.Produto;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,22 +13,29 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String descricao;
+    private String nome;
+
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<>();
 
     @Deprecated
     public Categoria() {
     }
 
     public Categoria(String descricao) {
-        this.descricao = descricao;
+        this.nome = descricao;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
     @Override
@@ -35,11 +43,11 @@ public class Categoria {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Categoria categoria = (Categoria) o;
-        return id.equals(categoria.id) && descricao.equals(categoria.descricao);
+        return id.equals(categoria.id) && nome.equals(categoria.nome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descricao);
+        return Objects.hash(id, nome);
     }
 }
