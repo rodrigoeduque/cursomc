@@ -5,6 +5,8 @@ import br.com.rodrigoeduque.cursomcnelioalves.categorias.repository.CategoriaRep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CategoriaService {
     private CategoriaRepository repository;
@@ -15,7 +17,7 @@ public class CategoriaService {
     }
 
     public Categoria buscarPorId(Long id) {
-        Categoria possivelCategoria = repository.findById(id).orElseThrow(IllegalArgumentException::new);
-        return possivelCategoria;
+        Optional<Categoria> possivelCategoria = repository.findById(id);
+        return possivelCategoria.orElse(null);
     }
 }
