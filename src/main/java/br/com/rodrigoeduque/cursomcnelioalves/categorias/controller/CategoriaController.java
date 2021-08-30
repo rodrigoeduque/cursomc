@@ -1,7 +1,11 @@
 package br.com.rodrigoeduque.cursomcnelioalves.categorias.controller;
 
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
+import br.com.rodrigoeduque.cursomcnelioalves.categorias.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,17 +16,18 @@ import java.util.List;
 @RequestMapping(value = "/categorias")
 public class CategoriaController {
 
-    @GetMapping
-    public List<Categoria> listar() {
+    private CategoriaService service;
 
-        Categoria cat1 = new Categoria("Informática");
-        Categoria cat2 = new Categoria("Escritório");
+    @Autowired
+    public CategoriaController(CategoriaService service) {
+        this.service = service;
+    }
 
-        List<Categoria> lista = new ArrayList<>();
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> buscaPorId(@PathVariable Long id) {
 
-        lista.add(cat1);
-        lista.add(cat2);
+        Categoria categoria = service.buscarPorId(id);
 
-        return lista;
+        return ResponseEntity.ok(categoria);
     }
 }
