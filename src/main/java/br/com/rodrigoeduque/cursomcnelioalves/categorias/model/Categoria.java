@@ -1,6 +1,7 @@
 package br.com.rodrigoeduque.cursomcnelioalves.categorias.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.produtos.model.Produto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Categoria {
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")
+    @JsonManagedReference
     private List<Produto> produtos = new ArrayList<>();
 
     @Deprecated

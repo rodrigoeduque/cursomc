@@ -1,6 +1,7 @@
 package br.com.rodrigoeduque.cursomcnelioalves.produtos.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class Produto {
     private String nome;
     private Double preco;
     @ManyToMany
-    @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"),inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @JsonBackReference
     private List<Categoria> categorias = new ArrayList<>();
 
     @Deprecated

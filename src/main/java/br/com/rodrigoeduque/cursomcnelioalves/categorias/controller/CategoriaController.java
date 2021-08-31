@@ -28,6 +28,6 @@ public class CategoriaController {
 
         Categoria categoria = service.buscarPorId(id);
 
-        return ResponseEntity.ok(categoria);
+        return ResponseEntity.ok().body(categoria);
     }
 }

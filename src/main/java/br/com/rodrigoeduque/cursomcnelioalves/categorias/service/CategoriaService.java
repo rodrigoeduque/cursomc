@@ -1,5 +1,6 @@
 package br.com.rodrigoeduque.cursomcnelioalves.categorias.service;
 
+import br.com.rodrigoeduque.cursomcnelioalves.exceptionhandler.exceptions.NaoEncontradaException;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,6 @@ public class CategoriaService {
 
     public Categoria buscarPorId(Long id) {
         Optional<Categoria> possivelCategoria = repository.findById(id);
-        return possivelCategoria.orElse(null);
+        return possivelCategoria.orElseThrow(() -> new NaoEncontradaException(" Categoria não encontrada : | " + id + " |"));
     }
 }
