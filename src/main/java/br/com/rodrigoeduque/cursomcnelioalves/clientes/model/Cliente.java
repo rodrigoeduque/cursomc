@@ -3,10 +3,7 @@ package br.com.rodrigoeduque.cursomcnelioalves.clientes.model;
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.enums.TipoCliente;
 import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,8 +21,11 @@ public class Cliente {
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
 

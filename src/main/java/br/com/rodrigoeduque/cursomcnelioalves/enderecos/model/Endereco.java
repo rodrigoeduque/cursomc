@@ -3,8 +3,13 @@ package br.com.rodrigoeduque.cursomcnelioalves.enderecos.model;
 import br.com.rodrigoeduque.cursomcnelioalves.cidades.model.Cidade;
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.model.Cliente;
 
+import javax.persistence.*;
+
+@Entity
 public class Endereco {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String logradouro;
     private String numero;
@@ -12,8 +17,12 @@ public class Endereco {
     private String bairro;
     private String cep;
 
+    @JoinColumn(name = "cliente_id")
+    @ManyToOne
     private Cliente cliente;
 
+    @JoinColumn(name = "cidade_id")
+    @ManyToOne
     private Cidade cidade;
 
     @Deprecated
