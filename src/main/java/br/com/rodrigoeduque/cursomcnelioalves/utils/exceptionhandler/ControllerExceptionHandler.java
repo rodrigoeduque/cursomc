@@ -1,6 +1,6 @@
-package br.com.rodrigoeduque.cursomcnelioalves.exceptionhandler;
+package br.com.rodrigoeduque.cursomcnelioalves.utils.exceptionhandler;
 
-import br.com.rodrigoeduque.cursomcnelioalves.exceptionhandler.exceptions.NaoEncontradaException;
+import br.com.rodrigoeduque.cursomcnelioalves.utils.exceptionhandler.exceptions.NaoEncontradaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

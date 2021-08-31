@@ -1,4 +1,4 @@
-package br.com.rodrigoeduque.cursomcnelioalves.exceptionhandler.exceptions;
+package br.com.rodrigoeduque.cursomcnelioalves.utils.exceptionhandler.exceptions;
 
 public class NaoEncontradaException extends RuntimeException {
     public NaoEncontradaException(String mensagem) {

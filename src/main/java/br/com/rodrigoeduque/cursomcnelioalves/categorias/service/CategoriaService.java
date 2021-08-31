@@ -1,6 +1,6 @@
 package br.com.rodrigoeduque.cursomcnelioalves.categorias.service;
 
-import br.com.rodrigoeduque.cursomcnelioalves.exceptionhandler.exceptions.NaoEncontradaException;
+import br.com.rodrigoeduque.cursomcnelioalves.utils.exceptionhandler.exceptions.NaoEncontradaException;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

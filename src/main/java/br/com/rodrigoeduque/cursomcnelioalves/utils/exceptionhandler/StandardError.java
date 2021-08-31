@@ -1,4 +1,4 @@
-package br.com.rodrigoeduque.cursomcnelioalves.exceptionhandler;
+package br.com.rodrigoeduque.cursomcnelioalves.utils.exceptionhandler;
 
 public class StandardError {
     private Integer status;
