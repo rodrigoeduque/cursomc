@@ -2,6 +2,7 @@ package br.com.rodrigoeduque.cursomcnelioalves.enderecos.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.cidades.model.Cidade;
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.model.Cliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ public class Endereco {
     private String bairro;
     private String cep;
 
+    @JsonBackReference
     @JoinColumn(name = "cliente_id")
     @ManyToOne
     private Cliente cliente;

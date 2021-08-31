@@ -11,6 +11,13 @@ import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
 import br.com.rodrigoeduque.cursomcnelioalves.enderecos.repository.EnderecoRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.estados.model.Estado;
 import br.com.rodrigoeduque.cursomcnelioalves.estados.repository.EstadoRepository;
+import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.PagamentoRepository;
+import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.EstadoPagamento;
+import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.Pagamento;
+import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.PagamentoComBoleto;
+import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.PagamentoComCartao;
+import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
+import br.com.rodrigoeduque.cursomcnelioalves.pedidos.repository.PedidoRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.produtos.model.Produto;
 import br.com.rodrigoeduque.cursomcnelioalves.produtos.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -40,6 +50,12 @@ public class CursomcnelioalvesApplication implements CommandLineRunner {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursomcnelioalvesApplication.class, args);
@@ -79,6 +95,19 @@ public class CursomcnelioalvesApplication implements CommandLineRunner {
         cli1.getTelefones().addAll(Set.of("2736114585", "34992648188"));
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 
+        String strLocalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+
+        Pedido ped1 = new Pedido(cli1, e1);
+        Pedido ped2 = new Pedido(cli1, e2);
+
+        Pagamento pagto1 = new PagamentoComCartao(EstadoPagamento.QUITADO, ped1, 6);
+        ped1.setPagamento(pagto1);
+        Pagamento pagto2 = new PagamentoComBoleto(EstadoPagamento.PENDENTE, ped2, LocalDate.of(2021, 10, 20), null);
+        ped2.setPagamento(pagto2);
+
+        cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
 
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
@@ -86,5 +115,7 @@ public class CursomcnelioalvesApplication implements CommandLineRunner {
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
         clienteRepository.save(cli1);
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+        pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
     }
 }

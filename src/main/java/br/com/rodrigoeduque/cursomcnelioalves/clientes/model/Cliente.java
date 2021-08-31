@@ -2,12 +2,11 @@ package br.com.rodrigoeduque.cursomcnelioalves.clientes.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.enums.TipoCliente;
 import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
+import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Cliente {
@@ -21,12 +20,16 @@ public class Cliente {
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
 
     @Deprecated
@@ -66,5 +69,22 @@ public class Cliente {
 
     public Set<String> getTelefones() {
         return telefones;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(id, cliente.id) && Objects.equals(cpfOuCnpj, cliente.cpfOuCnpj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, cpfOuCnpj);
     }
 }
