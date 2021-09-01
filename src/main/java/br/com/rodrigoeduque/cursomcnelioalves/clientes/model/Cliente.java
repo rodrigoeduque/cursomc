@@ -3,8 +3,7 @@ package br.com.rodrigoeduque.cursomcnelioalves.clientes.model;
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.enums.TipoCliente;
 import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
 import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -21,7 +20,6 @@ public class Cliente {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -30,7 +28,7 @@ public class Cliente {
     private Set<String> telefones = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
+    @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
 
 

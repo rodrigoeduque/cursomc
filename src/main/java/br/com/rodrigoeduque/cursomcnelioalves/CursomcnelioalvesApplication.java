@@ -1,6 +1,5 @@
 package br.com.rodrigoeduque.cursomcnelioalves;
 
-import br.com.rodrigoeduque.cursomcnelioalves.itempedido.repository.ItemPedidoRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.repository.CategoriaRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.cidades.model.Cidade;
@@ -13,6 +12,7 @@ import br.com.rodrigoeduque.cursomcnelioalves.enderecos.repository.EnderecoRepos
 import br.com.rodrigoeduque.cursomcnelioalves.estados.model.Estado;
 import br.com.rodrigoeduque.cursomcnelioalves.estados.repository.EstadoRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.itempedido.model.ItemPedido;
+import br.com.rodrigoeduque.cursomcnelioalves.itempedido.repository.ItemPedidoRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.PagamentoRepository;
 import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.EstadoPagamento;
 import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.Pagamento;

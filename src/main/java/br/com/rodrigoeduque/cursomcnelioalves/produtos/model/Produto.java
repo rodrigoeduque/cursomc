@@ -3,7 +3,6 @@ package br.com.rodrigoeduque.cursomcnelioalves.produtos.model;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
 import br.com.rodrigoeduque.cursomcnelioalves.itempedido.model.ItemPedido;
 import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ public class Produto {
     private Double preco;
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-    @JsonBackReference
+    @JsonIgnore
     private List<Categoria> categorias = new ArrayList<>();
 
     @JsonIgnore

@@ -5,7 +5,6 @@ import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
 import br.com.rodrigoeduque.cursomcnelioalves.itempedido.model.ItemPedido;
 import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.Pagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,12 +22,10 @@ public class Pedido {
     private LocalDateTime instante = LocalDateTime.now();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-    @JsonManagedReference
     private Pagamento pagamento;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonManagedReference
     private Cliente cliente;
 
     @ManyToOne
