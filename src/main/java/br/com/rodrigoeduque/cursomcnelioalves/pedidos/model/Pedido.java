@@ -5,6 +5,7 @@ import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
 import br.com.rodrigoeduque.cursomcnelioalves.itempedido.model.ItemPedido;
 import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.Pagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,21 +19,23 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime instante = LocalDateTime.now();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @JsonManagedReference
     private Pagamento pagamento;
 
     @ManyToOne
-    @JoinColumn(name="cliente_id")
+    @JoinColumn(name = "cliente_id")
+    @JsonManagedReference
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name="endereco_de_entrega_id")
+    @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
-    @OneToMany(mappedBy="id.pedido")
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
     @Deprecated

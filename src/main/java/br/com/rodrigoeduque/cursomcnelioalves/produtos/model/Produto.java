@@ -36,6 +36,7 @@ public class Produto {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos() {
         List<Pedido> lista = new ArrayList<>();
 

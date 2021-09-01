@@ -1,6 +1,7 @@
 package br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,6 +17,7 @@ public abstract class Pagamento {
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
+    @JsonBackReference
     private Pedido pedido;
 
     public Pagamento() {

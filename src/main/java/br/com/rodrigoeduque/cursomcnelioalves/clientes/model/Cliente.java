@@ -3,6 +3,7 @@ package br.com.rodrigoeduque.cursomcnelioalves.clientes.model;
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.enums.TipoCliente;
 import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
 import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Cliente {
     private Set<String> telefones = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
+    @JsonBackReference
     private List<Pedido> pedidos = new ArrayList<>();
 
 
