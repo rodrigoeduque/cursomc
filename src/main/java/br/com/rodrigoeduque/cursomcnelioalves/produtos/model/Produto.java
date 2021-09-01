@@ -1,12 +1,13 @@
 package br.com.rodrigoeduque.cursomcnelioalves.produtos.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
+import br.com.rodrigoeduque.cursomcnelioalves.itempedido.model.ItemPedido;
+import br.com.rodrigoeduque.cursomcnelioalves.pedidos.model.Pedido;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Produto {
@@ -21,6 +22,11 @@ public class Produto {
     @JsonBackReference
     private List<Categoria> categorias = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy="id.produto")
+    private Set<ItemPedido> itens = new HashSet<>();
+
+
     @Deprecated
     public Produto() {
     }
@@ -28,6 +34,15 @@ public class Produto {
     public Produto(String nome, Double preco) {
         this.nome = nome;
         this.preco = preco;
+    }
+
+    public List<Pedido> getPedidos() {
+        List<Pedido> lista = new ArrayList<>();
+
+        for (ItemPedido x : itens) {
+            lista.add(x.getPedido());
+        }
+        return lista;
     }
 
     public Long getId() {
@@ -46,6 +61,14 @@ public class Produto {
         return categorias;
     }
 
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,4 +81,6 @@ public class Produto {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }

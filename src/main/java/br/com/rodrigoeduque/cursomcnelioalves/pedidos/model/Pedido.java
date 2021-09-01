@@ -2,11 +2,15 @@ package br.com.rodrigoeduque.cursomcnelioalves.pedidos.model;
 
 import br.com.rodrigoeduque.cursomcnelioalves.clientes.model.Cliente;
 import br.com.rodrigoeduque.cursomcnelioalves.enderecos.model.Endereco;
+import br.com.rodrigoeduque.cursomcnelioalves.itempedido.model.ItemPedido;
 import br.com.rodrigoeduque.cursomcnelioalves.pagamentos.model.Pagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido {
@@ -14,18 +18,22 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private LocalDateTime instante = LocalDateTime.now();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @JoinColumn(name = "cliente_id")
     @ManyToOne
+    @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "enderecoEntregaId")
+    @JoinColumn(name="endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
+
+    @OneToMany(mappedBy="id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     @Deprecated
     public Pedido() {
@@ -56,9 +64,18 @@ public class Pedido {
         return enderecoDeEntrega;
     }
 
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -72,4 +89,6 @@ public class Pedido {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }
