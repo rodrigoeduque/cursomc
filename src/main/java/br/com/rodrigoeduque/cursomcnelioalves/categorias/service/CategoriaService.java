@@ -5,6 +5,7 @@ import br.com.rodrigoeduque.cursomcnelioalves.categorias.repository.CategoriaRep
 import br.com.rodrigoeduque.cursomcnelioalves.utils.exceptionhandler.exceptions.NaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -20,5 +21,11 @@ public class CategoriaService {
     public Categoria buscarPorId(Long id) {
         Optional<Categoria> possivelCategoria = repository.findById(id);
         return possivelCategoria.orElseThrow(() -> new NaoEncontradaException(" Categoria não encontrada : | " + id + " |"));
+    }
+
+    public Categoria cadastrar(Categoria categoria) {
+        Categoria novaCategoria = repository.save(categoria);
+
+        return novaCategoria;
     }
 }

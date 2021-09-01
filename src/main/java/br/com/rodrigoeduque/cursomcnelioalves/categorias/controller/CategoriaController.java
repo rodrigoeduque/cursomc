@@ -4,10 +4,10 @@ import br.com.rodrigoeduque.cursomcnelioalves.categorias.model.Categoria;
 import br.com.rodrigoeduque.cursomcnelioalves.categorias.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -26,5 +26,12 @@ public class CategoriaController {
         Categoria categoria = service.buscarPorId(id);
 
         return ResponseEntity.ok().body(categoria);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> cadastrar(@RequestBody Categoria categoria) {
+        Categoria novaCategoria = service.cadastrar(categoria);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
