@@ -50,4 +50,8 @@ public class Categoria {
     public int hashCode() {
         return Objects.hash(id, nome);
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
